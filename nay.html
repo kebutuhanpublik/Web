@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Score808web Stream Viewer</title>
+  <link rel="icon" href="https://808.beritanasional.eu.org/favicon.ico" type="image/x-icon" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      overflow: hidden;
+    }
+
+    iframe#view {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 2;
+    }
+
+    /* Loader modern brand style */
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 64px;
+      height: 64px;
+      border: 6px solid #38bdf8;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .loader-text {
+      position: absolute;
+      top: calc(50% + 40px);
+      left: 50%;
+      transform: translateX(-50%);
+      color: #38bdf8;
+      font-size: 16px;
+      font-weight: 500;
+      z-index: 3;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+    /* Branding pojok */
+    .branding {
+position: fixed;
+    top: 12px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #facc15;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 6px 14px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(250, 204, 21, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 5;
+    text-shadow: 1px 1px 2px #000;
+    }
+
+    img[src^="https://um.simpli.fi/"],
+    img[src^="https://i.liadm.com/"] {
+      display: none;
+    }
+  </style>
+ <!-- <script type='text/javascript' src='//undoneknit.com/09/be/bc/09bebcf12b7f51beca114c9dffe27673.js'></script>-->
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader" class="loader"></div>
+  <div id="loader-text" class="loader-text">Memuat Streaming...</div>
+
+  <!-- Branding -->
+  <div class="branding">www.score808.web.id</div>
+
+  <!-- Iframe -->
+  <iframe id="view" loading="lazy" allowfullscreen></iframe>
+
+  <!-- JS -->
+  <script>
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("@");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("+");
+        if (pair[0] == variable) {
+          return pair[1];
+        }
+      }
+      return false;
+    }
+
+    function base64Decode(str) {
+      try {
+        return decodeURIComponent(escape(atob(str)));
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function hideLoader() {
+      document.getElementById('loader').classList.add('hidden');
+      document.getElementById('loader-text').classList.add('hidden');
+    }
+    window.onload = function () {
+      const encodedUrl = getQueryVariable("url");
+      if (encodedUrl) {
+        const url = base64Decode(encodedUrl);
+        if (url) {
+          const iframe = document.getElementById('view');
+          iframe.src = url;
+  iframe.onload = hideLoader;
+        } else {
+          alert("Gagal decode URL streaming.");
+          hideLoader();
+        }
+      } else {
+        alert("Parameter URL streaming tidak ditemukan.");
+        hideLoader();
+      }
+    };
+  </script>
+<!-- Histats -->
+  <script type="text/javascript">
+    var _Hasync=_Hasync||[];
+    _Hasync.push(['Histats.start','1,4858913,4,601,110,30,00000100']);
+    _Hasync.push(['Histats.fasi','1']);
+    _Hasync.push(['Histats.track_hits','']);
+    var LazyHistatsLoaded=!1;
+    function loadHistatsScript(){
+      if(LazyHistatsLoaded) return;
+      LazyHistatsLoaded=!0;
+      var hs=document.createElement('script');
+      hs.type='text/javascript';hs.async=!0;
+      hs.src='https://s10.histats.com/js15_as.js';
+      var s=document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(hs,s)
+    }
+    window.addEventListener('scroll',function(){
+      if((document.documentElement.scrollTop!==0||document.body.scrollTop!==0)&&!LazyHistatsLoaded){
+        loadHistatsScript()
+      }
+    },{passive:!0})
+  </script>
+
+  <noscript>
+    <a href="/" target="_blank">
+      <img src="https://sstatic1.histats.com/0.gif?4858913&101" alt="hitstat score808" title="trafick score808" border="0">
+    </a>
+  </noscript>
+</body>
+</html>
